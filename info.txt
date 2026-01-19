@@ -1,0 +1,60 @@
+What is API ?
+    API Stands for application programming Interface 
+
+    it Acts as a two-way communication bridge between Front-end and Backend 
+
+
+What is REST API ?
+    REST Stands for Representational State Transfer
+
+    it organizes how web applications talk to each other , separating what the 
+    user sees (Frontend) from what runs behind the scenes (Backend)
+
+
+Core principle of REST 
+
+    -stateless:
+        the server doesn't store any information about the client between requests
+
+    -client-server Architecture 
+        the app (client) asks for things (data) and the server does what's requested (sends data or makes changes )
+
+
+
+
+    Standardized Interface
+
+    ResT api rely on set of Standard methods for interacting with (GET,POST,PUT,DELETE) resources
+
+    GET - retrieving the resources
+
+    POST - creating the resources 
+
+    PUT  - updateing the resources
+
+    DELETE - deleting the resource
+
+What is Endpoint   
+
+    API Endpoints
+    return the data to integrate into the frontend 
+
+    Webapp Endpoint 
+    User can directly access it from the web browsers
+
+Core principle of REST 
+    Easy to read Data   
+
+
+WHat is serializer 
+
+    serializer helps to convert complex data from database
+    into an formet that can Easyly share over the internet 
+    like json or xml 
+
+WHat is Dserilizer 
+
+    the deserilizer means the data recived in json formet 
+    and we have the store it into model incetance 
+
+FUnction based view 
