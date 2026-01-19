@@ -7,8 +7,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from Employees.models import Employees
 from rest_framework.views import APIView
-from rest_framework import mixins
-from rest_framework import generics
+from rest_framework import mixins ,generics,viewsets
 from django.http import Http404
 
 
@@ -249,8 +248,47 @@ class Employees_mixins_pk(mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixi
         return self.destroy(request,pk)      # Distroy 
     
     
-        
-        
+##########################################################################################################################################
+## Class Based Serialzers using Genrics                       ################ CRUD ##################
+##########################################################################################################################################
+
     
-        
-        
+class Employees_genrics(generics.ListAPIView  ,  generics.CreateAPIView):  # to view/list all employees & create/new employee 
+    queryset = Employees.objects.all()
+    serializer_class = EmployeesSerializers
+    
+    
+##########################################################################################################################################
+## Class Based Serialzers using Genrics primary key user specific   ################ CRUD ##################
+##########################################################################################################################################
+"""
+class Employees_genrics_pk(generics.RetrieveAPIView,generics.UpdateAPIView,generics.CreateAPIView,generics.DestroyAPIView):
+    queryset = Employees.objects.all()
+    serializer_class = EmployeesSerializers
+    lookup_field = 'pk'
+"""
+    
+class Employees_genrics_pk(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Employees.objects.all()
+    serializer_class = EmployeesSerializers
+    lookup_field = 'pk'
+    
+
+################################################################################################################
+###################### ViewSet  ################################# ViewSet ######################################
+
+
+class EmployeeViewSet(viewsets.ViewSet):
+    
+    def list(self,request):
+        employee = Employees.objects.all()
+        serializer = EmployeesSerializers(employee,many = True)
+        return Response(serializer.data ,status=status.HTTP_200_OK)
+    
+    def create(self,request):
+        employee = Employees.objects.all()
+        serializer = EmployeesSerializers(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)    

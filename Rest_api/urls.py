@@ -1,6 +1,12 @@
 from django.contrib import admin
 from django.urls import path,include
 from . import views
+from rest_framework.routers import DefaultRouter
+
+
+router = DefaultRouter()
+router.register('employee_viewset',views.EmployeeViewSet,basename='employee')
+
 
 urlpatterns = [
     path('student1/',views.studentsApi1), # static data 
@@ -11,18 +17,24 @@ urlpatterns = [
     path('student-update/<int:pk>',views.student_Data_update), # we can update date delete date of specific student 
     
     ### Employees class based view 
-    
-    path('employees/',views.Employee.as_view()),
-    
+    path('employees/',views.Employee.as_view()),    
     # CRUD in employees using class based viws
-    path('employees/<int:pk>',views.Employee_details.as_view()),
+    path('employees/<int:pk>',views.Employee_details.as_view()),  #primary key based 
+    
     
     # Handling API Using Mixins 
     path('employees_mixins/',views.Employees_mixins.as_view()),
-    
     # Handling primary key based operations using mixins
-    path('employees_mixins_pk/<int:pk>',views.Employees_mixins_pk.as_view())
+    path('employees_mixins_pk/<int:pk>',views.Employees_mixins_pk.as_view()), #primary key based 
     
     
+    # Handling API using genrics
+    path('employees_genrics',views.Employees_genrics.as_view()),
+    # Handling API using genrics primary key 
+    path('employees_genrics/<int:pk>',views.Employees_genrics_pk.as_view()),
+    
+    ## Register 
+    path('',include(router.urls))
     
 ]   
+
