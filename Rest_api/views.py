@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse,HttpRequest,JsonResponse
 from student.models import Student
 from .serializer import StudentSerializers,EmployeesSerializers
@@ -277,7 +277,7 @@ class Employees_genrics_pk(generics.RetrieveUpdateDestroyAPIView):
 ################################################################################################################
 ###################### ViewSet  ################################# ViewSet ######################################
 
-
+"""
 class EmployeeViewSet(viewsets.ViewSet):
     
     def list(self,request):
@@ -286,9 +286,36 @@ class EmployeeViewSet(viewsets.ViewSet):
         return Response(serializer.data ,status=status.HTTP_200_OK)
     
     def create(self,request):
-        employee = Employees.objects.all()
         serializer = EmployeesSerializers(data = request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)    
+    
+    # Retrive data user data 
+    def retrieve(self,request,pk = None):
+        employee = get_object_or_404(Employees,pk=pk)
+        serializer = EmployeesSerializers(employee)
+        return Response(serializer.data ,status=status.HTTP_200_OK)
+    
+    def update(self,request,pk=None):
+        employee = get_object_or_404(Employees,pk=pk)
+        serializer = EmployeesSerializers(employee,data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self,request,pk=None):
+        employee = get_object_or_404(Employees,pk=pk)
+        employee.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+""" 
+    
+#############################################################################################################
+######################## Model viewset ######################################################################## 
+
+class EmployeeViewSet(viewsets.ModelViewSet):
+    queryset = Employees.objects.all()
+    serializer_class = EmployeesSerializers 
