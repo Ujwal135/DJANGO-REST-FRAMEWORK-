@@ -57,4 +57,71 @@ WHat is Dserilizer
     the deserilizer means the data recived in json formet 
     and we have the store it into model incetance 
 
+
+
 FUnction based view 
+    fatching data from database using functions
+    1. create sirializer.py file 
+    2. create -> sirializer.sirializerModel class ->  in that add class meta then add model name 
+    for which we have to create the serializer AND select filds we want in our serializer
+
+    3. then create function in views.py get data -> pass that data in serializer class 
+    4. do the operation 
+    5. return the responce
+    6. and last and important add api_view(['GET','POST']) to get api view
+
+    7. we can fatch specific specific record using Primary key from data base in url -> 'employees/<int:pk>'
+
+CLass based views
+
+    fatching data from database using class with multiple methods 
+
+    APIView,
+    mixins,
+    generics,
+    viewSet,
+    modelviewset
+
+    1.Apiview is basic and traditional method to use it has class name which is inharited by APIView class and then
+        it consist of functions like get,post,put,delete,
+
+    2.Mixins provide Standard built in CURD operation
+        1. .ListmodelMixin -> list() handls the list of multiple instances
+        2. .Createmodelmixin -> Create() createing new model incetance 
+        3, ,Retrievemodelmixin -> retrieve() action to fatching a single model incetance
+        4, ,Updatemodelmixin -> update() action to modifying existing model incetance
+        5, ,Destroymodelmixin -> delete() action to delete the existing model incetance
+
+    3.generics its provides the same functionality as mixins provide but in minimal the code 
+        
+         eg to get list of all model incetance
+
+            class employees(generics.listapiview)
+                query_set = employees
+                serializer = employees_serializer 
+                lookup_field = 'pk'
+
+    4.Viewset A ViewSet class is simply a type of class-based View, that does not provide any method handlers such as 
+             .get() or .post(), and instead provides actions such as .list() and .create().
+
+             this require router setup
+
+    5. modelviewset it can provide all the CRUD operation functionality in very minimal code as generic api view 
+        simply mentioning the query_set , serializerclass , and lookup_field
+
+    
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+

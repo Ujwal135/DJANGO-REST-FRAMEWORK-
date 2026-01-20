@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'student',
     'Rest_api',
-    'Employees'
+    'Employees',
+    'Blog',
+    'django_filters',
+    
 ]
 
 MIDDLEWARE = [
@@ -120,3 +123,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS' :['django_filters.rest_framework.DjangoFilterBackend']  
+}

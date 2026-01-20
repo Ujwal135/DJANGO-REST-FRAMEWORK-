@@ -34,7 +34,17 @@ urlpatterns = [
     path('employees_genrics/<int:pk>',views.Employees_genrics_pk.as_view()),
     
     ## Register 
-    path('',include(router.urls))
+    path('',include(router.urls)),
+    
+    ########### Blog Class  Nested Serializers        ########
+    path('blogs/',views.Blogviews.as_view()),
+    path('comments/',views.Commentsviews.as_view())  ,  
+    
+    
+    ####### Blog class nasted serializers with primary key #####
+    
+    path('blogs/<int:pk>',views.BlogsdetailsViews.as_view()),
+    path('comments/<int:pk>',views.CommentdetailsViews.as_view())
     
 ]   
 
